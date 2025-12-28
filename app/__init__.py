@@ -1,14 +1,24 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+import os
 
 db = SQLAlchemy()
 
-def create_app():
+def create_app(test_config=None):
     app = Flask(__name__)
     
     # Database configuration
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@db:5432/habit_tracker_db'
+    if test_config is None:
+        # Use DATABASE_URL if set, otherwise localhost PostgreSQL
+        app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
+            'DATABASE_URL',
+            'postgresql://localhost/habit_tracker_db'
+        )
+    else:
+        # Test configuration
+        app.config.update(test_config)
+    
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     
     db.init_app(app)
