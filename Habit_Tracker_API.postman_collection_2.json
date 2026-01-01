@@ -1,0 +1,480 @@
+{
+	"info": {
+		"_postman_id": "habit-tracker-api",
+		"name": "Habit Tracker API",
+		"description": "API collection for the Habit Tracker Flask application",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:5000",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Health",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/health",
+							"host": ["{{base_url}}"],
+							"path": ["health"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Get All Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/categories",
+							"host": ["{{base_url}}"],
+							"path": ["api", "categories"]
+						}
+					}
+				},
+				{
+					"name": "Get Category by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/categories/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "categories", "1"]
+						}
+					}
+				},
+				{
+					"name": "Create Category",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Health\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/categories",
+							"host": ["{{base_url}}"],
+							"path": ["api", "categories"]
+						}
+					}
+				},
+				{
+					"name": "Update Category",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Fitness\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/categories/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "categories", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete Category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/categories/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "categories", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Habits",
+			"item": [
+				{
+					"name": "Get All Habits",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/habits",
+							"host": ["{{base_url}}"],
+							"path": ["api", "habits"]
+						}
+					}
+				},
+				{
+					"name": "Get Habits (Filter by Category)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/habits?category_id=1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "habits"],
+							"query": [
+								{
+									"key": "category_id",
+									"value": "1"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Habits (Filter by Frequency)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/habits?frequency=daily",
+							"host": ["{{base_url}}"],
+							"path": ["api", "habits"],
+							"query": [
+								{
+									"key": "frequency",
+									"value": "daily"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Habit by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/habits/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "habits", "1"]
+						}
+					}
+				},
+				{
+					"name": "Create Habit (Daily)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Morning Exercise\",\n    \"description\": \"30 minutes of exercise\",\n    \"frequency\": \"daily\",\n    \"category_id\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/habits",
+							"host": ["{{base_url}}"],
+							"path": ["api", "habits"]
+						}
+					}
+				},
+				{
+					"name": "Create Habit (Weekly)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Weekly Review\",\n    \"description\": \"Review goals and progress\",\n    \"frequency\": \"weekly\",\n    \"category_id\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/habits",
+							"host": ["{{base_url}}"],
+							"path": ["api", "habits"]
+						}
+					}
+				},
+				{
+					"name": "Update Habit",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Evening Exercise\",\n    \"description\": \"Updated description\",\n    \"frequency\": \"daily\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/habits/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "habits", "1"]
+						}
+					}
+				},
+				{
+					"name": "Archive Habit",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"is_active\": false\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/habits/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "habits", "1"]
+						}
+					}
+				},
+				{
+					"name": "Delete Habit",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/habits/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "habits", "1"]
+						}
+					}
+				},
+				{
+					"name": "Get Habit Streak",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/habits/1/streak",
+							"host": ["{{base_url}}"],
+							"path": ["api", "habits", "1", "streak"]
+						}
+					}
+				},
+				{
+					"name": "Get Habit Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/habits/1/stats",
+							"host": ["{{base_url}}"],
+							"path": ["api", "habits", "1", "stats"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Completions",
+			"item": [
+				{
+					"name": "Get Completions for Habit",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/habits/1/completions",
+							"host": ["{{base_url}}"],
+							"path": ["api", "habits", "1", "completions"]
+						}
+					}
+				},
+				{
+					"name": "Get Completions (Date Range)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/habits/1/completions?start_date=2025-01-01&end_date=2025-01-31",
+							"host": ["{{base_url}}"],
+							"path": ["api", "habits", "1", "completions"],
+							"query": [
+								{
+									"key": "start_date",
+									"value": "2025-01-01"
+								},
+								{
+									"key": "end_date",
+									"value": "2025-01-31"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Log Completion",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"completed_date\": \"2025-01-01\",\n    \"notes\": \"Completed morning routine!\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/habits/1/completions",
+							"host": ["{{base_url}}"],
+							"path": ["api", "habits", "1", "completions"]
+						}
+					}
+				},
+				{
+					"name": "Log Completion (Today)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"completed_date\": \"{{$isoTimestamp}}\",\n    \"notes\": \"Done!\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/habits/1/completions",
+							"host": ["{{base_url}}"],
+							"path": ["api", "habits", "1", "completions"]
+						}
+					}
+				},
+				{
+					"name": "Delete Completion",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/completions/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "completions", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Statistics",
+			"item": [
+				{
+					"name": "Get Summary",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/stats/summary",
+							"host": ["{{base_url}}"],
+							"path": ["api", "stats", "summary"]
+						}
+					}
+				},
+				{
+					"name": "Get Weekly Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/stats/weekly",
+							"host": ["{{base_url}}"],
+							"path": ["api", "stats", "weekly"]
+						}
+					}
+				},
+				{
+					"name": "Get Weekly Stats (Specific Week)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/stats/weekly?year=2025&week=1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "stats", "weekly"],
+							"query": [
+								{
+									"key": "year",
+									"value": "2025"
+								},
+								{
+									"key": "week",
+									"value": "1"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Monthly Stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/stats/monthly",
+							"host": ["{{base_url}}"],
+							"path": ["api", "stats", "monthly"]
+						}
+					}
+				},
+				{
+					"name": "Get Monthly Stats (Specific Month)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/stats/monthly?year=2025&month=1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "stats", "monthly"],
+							"query": [
+								{
+									"key": "year",
+									"value": "2025"
+								},
+								{
+									"key": "month",
+									"value": "1"
+								}
+							]
+						}
+					}
+				}
+			]
+		}
+	]
+}

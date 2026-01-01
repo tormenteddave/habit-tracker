@@ -10,10 +10,10 @@ def create_app(test_config=None):
     
     # Database configuration
     if test_config is None:
-        # Use DATABASE_URL if set, otherwise localhost PostgreSQL
+        # Use DATABASE_URL if set (Docker), otherwise SQLite for local dev
         app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
             'DATABASE_URL',
-            'postgresql://localhost/habit_tracker_db'
+            'sqlite:///habit_tracker.db'  # SQLite for local development
         )
     else:
         # Test configuration

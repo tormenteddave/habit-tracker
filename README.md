@@ -1,3 +1,14 @@
+# To start the Habit Tracker
+python run.py
+
+# Usage
+- Make sure Flask is running: python run.py
+- Start with Create Category (in Categories folder)
+- Then Create Habit (in Habits folder)
+- Then Log Completion (in Completions folder)
+- Check your progress with Get Summary (in Statistics folder)
+
+
 # Habit Tracker API
 
 A RESTful API for tracking daily and weekly habits, built with Flask and PostgreSQL.
@@ -202,12 +213,93 @@ curl http://localhost:5000/api/stats/summary
 - `created_at` (TIMESTAMP)
 - UNIQUE constraint on (habit_id, completed_date)
 
+## 🧪 Testing
+
+This project uses **pytest** and **pytest-flask** for testing. Tests include unit tests for models and integration tests for API endpoints.
+
+### Running Tests
+
+1. **Install test dependencies**:
+   ```bash
+   pip install pytest pytest-flask
+   ```
+
+2. **Run all tests**:
+   ```bash
+   pytest
+   ```
+
+3. **Run tests with verbose output**:
+   ```bash
+   pytest -v
+   ```
+
+4. **Run a specific test file**:
+   ```bash
+   pytest tests/test_habits.py
+   ```
+
+5. **Run tests with coverage** (requires pytest-cov):
+   ```bash
+   pip install pytest-cov
+   pytest --cov=app --cov-report=html
+   ```
+
+### Test Structure
+
+```
+tests/
+├── conftest.py           # Pytest fixtures and configuration
+├── test_categories.py    # Category endpoint tests
+├── test_habits.py        # Habit endpoint tests
+├── test_completions.py   # Completion endpoint tests
+├── test_stats.py         # Statistics endpoint tests
+└── test_models.py        # Unit tests for models
+```
+
+### Test Categories
+
+| Test File | Type | Description |
+|-----------|------|-------------|
+| `test_models.py` | Unit | Tests model methods like streak calculation |
+| `test_categories.py` | Integration | Tests CRUD operations for categories |
+| `test_habits.py` | Integration | Tests CRUD and stats for habits |
+| `test_completions.py` | Integration | Tests completion logging and retrieval |
+| `test_stats.py` | Integration | Tests statistics endpoints |
+
+### Example Test: Streak Calculation
+
+Here's an example of a unit test that verifies the streak calculation logic:
+
+```python
+def test_daily_streak_consecutive_days(self, app, sample_category):
+    """Test streak calculation with consecutive daily completions."""
+    with app.app_context():
+        habit = Habit(name='Daily Habit', frequency='daily')
+        db.session.add(habit)
+        db.session.commit()
+        
+        # Add 5 consecutive days ending today
+        today = date.today()
+        for i in range(5):
+            completion = Completion(
+                habit_id=habit.id,
+                completed_date=today - timedelta(days=i)
+            )
+            db.session.add(completion)
+        db.session.commit()
+        
+        assert habit.calculate_streak() == 5
+```
+
+This test creates a daily habit, adds 5 consecutive days of completions, and verifies that the `calculate_streak()` method correctly returns 5.
+
 ## 🔜 Future Improvements
 
 - [ ] Add user authentication
 - [ ] Implement longest streak tracking
 - [ ] Add data visualization endpoints
-- [ ] Create automated tests
+- [x] Create automated tests
 - [ ] Deploy to cloud platform
 
 ## 📄 License
